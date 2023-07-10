@@ -28,5 +28,6 @@ public class EstructurasPrincipales {
         System.out.println(c);
         c-=a+1;
         System.out.println(c);
+        System.out.println("El valor de pi es: "+pi);
     }
 }
