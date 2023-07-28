@@ -60,6 +60,21 @@ class Empleado {
 		fechaAlta = fecha.getTime();
 	}
 	
+	//Sobrecarga de constructores = esto quiere decir que una clase puede tener muchos metodos constructores
+	// puede haber varios constructores y se utilizara el que cumpla que tiene todos los parametros que
+	// pide el mismo constructor. No puede haber constructores con la misma cant de parametros.
+	
+	public Empleado (String nom) {
+		
+		//nombre = nom;
+		
+		//Otra opción que tenemos es utilizar el this, en este uso del this lo que va a hacer es tomar
+		// los valores de los parametros que tenemos y rellenarlo con los que les pasemos, llamando al otro
+		// constructor para eso. Al constructor que concuerde con la cant de parametros que le pasamos.
+		this(nom, 30000, 2000, 1, 1);
+		
+	}
+	
 	//Setters
 	public void subirSueldo(double porcentaje) {
 		double aumento = sueldo*porcentaje/100;
