@@ -12,12 +12,18 @@ public class UsoEmpleado {
 		jefeRRHH.estableceIncentivo(15000);
 		jefeRRHH.darSueldo();
 		
-		Empleado[] misEmpleados = new Empleado[5];
+		Empleado[] misEmpleados = new Empleado[6];
 		misEmpleados[0] = new Empleado("Joaquin Mezzano", 85000, 1999, 12, 3);
 		misEmpleados[1] = new Empleado("Roberto Pereira", 100000, 1995, 9, 23);
 		misEmpleados[2] = new Empleado("Ana Rupiere", 75000, 2001, 1, 15);
-		misEmpleados[3] = new Empleado("Jose Pemarola", 75000, 2002, 5, 1);
+		misEmpleados[3] = new Empleado("Jose Temarola", 75000, 2002, 5, 1);
 		misEmpleados[4] = jefeRRHH; //Poliformismo en acción. Esto es valido por que un Jefe es un Empleado.
+		misEmpleados[5] = new Jefatura("Maria Caceres", 95000, 2001, 5, 20);
+		
+		//Para poder usar el establecerIncentivo con Maria tenemos que transformar misEmpleados[5] en Jefatura
+		// haciendo uso de la refundición/casting.
+		Jefatura jefeFinanzas = (Jefatura)misEmpleados[5];
+		jefeFinanzas.estableceIncentivo(12500);
 		
 		/*Empleado[] misEmpleados = new Empleado[3];
 		for (int i = 0; i < misEmpleados.length; i++) {
@@ -86,13 +92,16 @@ class Empleado {
 		return sueldo;
 	}
 	
-	public Date darFecha() {
+	//Si yo quiero que no se pueda modificar un método con una subclase, es decir, que se reemplaze teniendo
+	// el mismo nombre, como pasa con darSueldo, lo declaro como final.
+	public final Date darFecha() {
 		return fechaAlta;
 	}
 	
 }
 
-class Jefatura extends Empleado {
+//Al usar final en una clase estamos diciendo que ninguna otra clase puede heredar de esta.
+final class Jefatura extends Empleado {
 	
 	private double incentivo;
 	
