@@ -38,7 +38,7 @@ public class Coche {
 	}
 	
 	public String dimeColor() {
-		return "El color del coche es "+color;
+		return "El color del vehiculo es "+color;
 	}
 	
 	//Al tener un parametro con el mismo nombre que una variable podemos hacer referencia a la variable con
@@ -53,9 +53,9 @@ public class Coche {
 	
 	public String dimeAsiento() {
 		if (asientosCuero == true) {
-			return "El coche tiene asientos de cuero.";
+			return "El vehiculo tiene asientos de cuero.";
 		} else {
-			return "El coche tiene asientos de tela.";
+			return "El vehiculo tiene asientos de tela.";
 		}
 	}
 	
@@ -69,9 +69,9 @@ public class Coche {
 	
 	public String dimeClima() {
 		if (climatizador == true) {
-			return "El coche tiene climatizador.";
+			return "El vehiculo tiene climatizador.";
 		} else {
-			return "El coche lleva aire acondicionado.";
+			return "El vehiculo lleva aire acondicionado.";
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class Coche {
 			pesoTotal += 20;
 		}
 		
-		return "El peso del coche es "+pesoTotal+" kilogramos.";
+		return "El peso del vehiculo es "+pesoTotal+" kilogramos.";
 		
 	}
 	

@@ -95,3 +95,31 @@ class Empleado {
 	}
 	
 }
+
+class Jefatura extends Empleado {
+	
+	public Jefatura(String nom, int sal, int anno, int mes, int dia) {
+		
+		super(nom, sal, anno, mes, dia);
+		
+	}
+	
+	public void estableceIncentivo(double cant) {
+		
+		incentivo = cant;
+		
+	}
+	
+	//Cómo no podemos utilizar el dameSueldo de empleado, lo que hacemos es crear un getter que se llame
+	// de la misma manera para sobreescribirlo y poder usarlo en el jefe.
+	public double darSueldo() {
+		
+		//al poner el super antes de darSueldo estamos diciendo que use el del metodo padre
+		double sueldoJefe = super.darSueldo();
+		return sueldoJefe+incentivo;
+		
+	}
+	
+	private double incentivo;
+	
+}
