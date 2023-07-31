@@ -8,36 +8,32 @@ public class UsoEmpleado {
 
 	public static void main(String[] args) {
 		
-		/*Empleado empleado1 = new Empleado("Joaquin Mezzano", 85000, 1999, 12, 3);
-		Empleado empleado2 = new Empleado("Roberto Pereira", 100000, 1995, 9, 23);
-		Empleado empleado3 = new Empleado("Ana Rupiere", 75000, 2001, 1, 15);
+		Jefatura jefeRRHH = new Jefatura("Violeta Parra", 105000, 1998, 5, 2);
+		jefeRRHH.estableceIncentivo(15000);
+		jefeRRHH.darSueldo();
 		
-		empleado1.subirSueldo(5);
-		empleado2.subirSueldo(5);
-		empleado3.subirSueldo(5);
+		Empleado[] misEmpleados = new Empleado[5];
+		misEmpleados[0] = new Empleado("Joaquin Mezzano", 85000, 1999, 12, 3);
+		misEmpleados[1] = new Empleado("Roberto Pereira", 100000, 1995, 9, 23);
+		misEmpleados[2] = new Empleado("Ana Rupiere", 75000, 2001, 1, 15);
+		misEmpleados[3] = new Empleado("Jose Pemarola", 75000, 2002, 5, 1);
+		misEmpleados[4] = jefeRRHH; //Poliformismo en acción. Esto es valido por que un Jefe es un Empleado.
 		
-		System.out.println("Nombre: "+empleado1.darNombre()+". Sueldo: "+empleado1.darSueldo()+
-				". Fecha de alta: "+empleado1.darFecha());
-		System.out.println("Nombre: "+empleado2.darNombre()+". Sueldo: "+empleado2.darSueldo()+
-				". Fecha de alta: "+empleado2.darFecha());
-		System.out.println("Nombre: "+empleado3.darNombre()+". Sueldo: "+empleado3.darSueldo()+
-				". Fecha de alta: "+empleado3.darFecha());
-		*/
-		
-		Empleado[] misEmpleados = new Empleado[3];
+		/*Empleado[] misEmpleados = new Empleado[3];
 		for (int i = 0; i < misEmpleados.length; i++) {
 			misEmpleados[i] = new Empleado(JOptionPane.showInputDialog("Nombre del empleado"),
 					Integer.parseInt(JOptionPane.showInputDialog("Sueldo del empleado")),
 					Integer.parseInt(JOptionPane.showInputDialog("Año de ingreso")),
 					Integer.parseInt(JOptionPane.showInputDialog("Mes de ingreso")),
 					Integer.parseInt(JOptionPane.showInputDialog("Dia de ingreso")));
-		}
+		} */
 		
 		for (Empleado e: misEmpleados) {
 			e.subirSueldo(5);
 		}
 		
 		for (int i = 0; i < misEmpleados.length; i++) {
+			System.out.println("");
 			System.out.println("Nombre: "+misEmpleados[i].darNombre());
 			System.out.println("Sueldo: "+misEmpleados[i].darSueldo());
 			System.out.println("Fecha de alta: "+misEmpleados[i].darFecha());
@@ -98,6 +94,8 @@ class Empleado {
 
 class Jefatura extends Empleado {
 	
+	private double incentivo;
+	
 	public Jefatura(String nom, int sal, int anno, int mes, int dia) {
 		
 		super(nom, sal, anno, mes, dia);
@@ -119,7 +117,5 @@ class Jefatura extends Empleado {
 		return sueldoJefe+incentivo;
 		
 	}
-	
-	private double incentivo;
 	
 }
