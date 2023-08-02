@@ -32,11 +32,34 @@ public class UsoEmpleado {
 					Integer.parseInt(JOptionPane.showInputDialog("Año de ingreso")),
 					Integer.parseInt(JOptionPane.showInputDialog("Mes de ingreso")),
 					Integer.parseInt(JOptionPane.showInputDialog("Dia de ingreso")));
-		} */
+		}
+		
+		//Por el principio de sustitución podemos instanciar una Jefatura desde un tipo Empleado.
+		Empleado directorComercial = new Jefatura("Sandra Bullock", 89000, 2000, 7, 1);
+		//Por el mismo principio de sustitución y al tener definida la clase Empleado con la interfaz de
+		// Comparable, podemos instanciar un Empleado a traves de un Comparable.
+		Comparable ejemplo = new Empleado("Jose Rupertinsky", 70000, 2003, 12, 2);
+		
+		//Al tener un programa complejo podemos comprobar si una instancia pertenece a una clase o no:
+		if (directorComercial instanceof Empleado) {
+			System.out.println("Es de tipo Jefatura");
+		}
+		if (ejemplo instanceof Comparable) {
+			System.out.println("Implementa la interfaz comparable");
+		}*/
+		
+		//Ponemos en uso la interfaz que creamos de Jefes con el tomarDecision
+		System.out.println(jefeFinanzas.tomarDecisiones("Subir el sueldo un 5% a todos los empleados por el "
+				+ "buen desempeño."));
+		
+		System.out.println(jefeRRHH.darNombre()+" tiene un bonus de: "+jefeRRHH.estableceBonus(1000));
 		
 		for (Empleado e: misEmpleados) {
 			e.subirSueldo(5);
 		}
+		
+		//Ordenamos el array por sueldo, para hacerlo hay que implementar a la clase la interfaz Comparable
+		Arrays.sort(misEmpleados);
 		
 		for (int i = 0; i < misEmpleados.length; i++) {
 			System.out.println("");
@@ -49,7 +72,7 @@ public class UsoEmpleado {
 
 }
 
-class Empleado {
+class Empleado implements Comparable, Trabajadores {
 	
 	private String nombre;
 	private double sueldo;
@@ -98,10 +121,35 @@ class Empleado {
 		return fechaAlta;
 	}
 	
+	//Para usar la interfaz 'Comparable' tenemos que definir los métodos requeridos en Comparable, el cual
+	// es compareTo. Para ver que requisitos tienen las interfaces hay que ver la API de Java.
+	public int compareTo(Object miObjeto) {
+		
+		//Refundimos el objeto miObjeto a tipo Empleado para poder comparar.
+		Empleado otroEmpleado = (Empleado) miObjeto;
+		
+		//Aca comparamos el parametro pasado con el elemento del array.
+		//Podemos ver que estamos comparando por sueldo, por esto es por lo que vamos a shortear, pero
+		// podemos shortearlo por cualquier campo del array para tener distintos shorts.
+		
+		if (this.sueldo < otroEmpleado.sueldo) {
+			return -1;
+		} else if (this.sueldo > otroEmpleado.sueldo) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	
+	public double estableceBonus(double gratificacion) {
+		return Trabajadores.bonusbase+gratificacion;
+	}
+	
+	
 }
 
 //Al usar final en una clase estamos diciendo que ninguna otra clase puede heredar de esta.
-final class Jefatura extends Empleado {
+final class Jefatura extends Empleado implements Jefes {
 	
 	private double incentivo;
 	
@@ -125,6 +173,16 @@ final class Jefatura extends Empleado {
 		double sueldoJefe = super.darSueldo();
 		return sueldoJefe+incentivo;
 		
+	}
+	
+	//Aca ponemos los requisitos de la interfaz Jefes
+	public String tomarDecisiones(String decision) {
+		return "Un miembro del comite de Jefatura ("+this.darNombre()+") a tomado la decisión de: "+decision;
+	}
+	
+	public double estableceBonus(double gratificacion) {
+		double prima = 2000;
+		return Trabajadores.bonusbase+gratificacion+prima;
 	}
 	
 }
