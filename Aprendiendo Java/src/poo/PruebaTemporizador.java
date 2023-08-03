@@ -1,6 +1,8 @@
 package poo;
 import javax.swing.*;
 import javax.swing.Timer;
+
+import java.awt.Toolkit;
 import java.awt.event.*;
 import java.util.*;
 
@@ -29,5 +31,8 @@ class DameHora implements ActionListener{
 		//Toma la fecha actual y la almacena en la variable 'ahora'.
 		Date ahora = new Date();
 		System.out.println("Hora actual: "+ahora);
+		//Toolkit relaciona todo lo que hay en java con nuestro equipo, con toolkit podemos hacer sonidos
+		// y hasta cambiar la resolución.
+		Toolkit.getDefaultToolkit().beep();
 	}
 }
