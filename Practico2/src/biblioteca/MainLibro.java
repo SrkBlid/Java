@@ -1,6 +1,6 @@
-package main;
+package biblioteca;
 
-import datos.Libro;
+import biblioteca.Libro;
 
 /**
 * La clase {@code MainLibro} implementa una aplicación simple para mostrar el uso de {@code Libro}.

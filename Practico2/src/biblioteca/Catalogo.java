@@ -1,6 +1,6 @@
-package catalogo;
+package biblioteca;
 
-import datos.Libro;
+import biblioteca.Libro;
 
 /**
 * La clase {@code Catalogo} representa un catálogo de libros ({@code Libro}) implementado sobre un arreglo.

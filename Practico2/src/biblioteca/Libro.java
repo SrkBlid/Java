@@ -1,4 +1,4 @@
-package datos;
+package biblioteca;
 
 /**
 * La clase {@code Libro} representa un libro formado por los siguientes datos:

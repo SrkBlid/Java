@@ -1,7 +1,7 @@
-package main;
+package biblioteca;
 
-import datos.Libro;
-import catalogo.Catalogo;
+import biblioteca.Catalogo;
+import biblioteca.Libro;
 
 /**
 * La clase {@code MainCatalogo} implementa una aplicación simple para mostrar el uso de {@code Catalogo} junto con {@code Libro}.
