@@ -124,10 +124,7 @@ public class ListaArreglo<T> implements Lista<T> {
 		if (this.cantidadElem < 0) {
 			return false;
 		}
-		if (this.cantidadElem > CAPACIDAD_BASE) {
-			return false;
-		}
-		if (arreglo.length < this.cantidadElem) {
+		if (this.cantidadElem > this.arreglo.length) {
 			return false;
 		}
 		for (int i = 0; i < this.cantidadElem; i++) {
