@@ -49,6 +49,19 @@ public class MainPilaArreglo {
 		//EQUALS
 		System.out.println("¿La pila 1 es igual a la pila 2? "+pila1.equals(pila2));
 		
+		//PILA DE TAMAÑO DINAMICO
+		PilaArreglo pila4 = new PilaArreglo(5);
+		for (int i = 0; i < 5; i++) {
+			pila4.apilar(i);
+		}
+		System.out.println();
+		System.out.println("La nueva pila 4 esta definida como: "+pila4);
+		System.out.println("Cuenta con un máximo de "+pila4.tamanoArre()+" elementos.");
+		for (int i = 21; i < 24; i++) {
+			pila4.apilar(i);
+		}
+		System.out.println("Al agregar más elementos pasamos el maximo por lo que duplica su capacidad: "+pila4.tamanoArre());
+		System.out.println("Arreglo nuevo que tiene el doble de tamaño: "+pila4);
 	}
 
 }

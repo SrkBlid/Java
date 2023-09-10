@@ -28,9 +28,30 @@ public class PilaArreglo<T> implements Pila<T>{
 			this.arreglo[cantidadElem] = elem;
 			cantidadElem++;
 		} else {
-			throw new IllegalArgumentException("El arreglo esta lleno.");
+			PilaArreglo aux = new PilaArreglo();
+			aux = duplicar(this);
+			this.arreglo = aux.arreglo;
+			this.cantidadElem = aux.cantidadElem;
+			this.arreglo[cantidadElem] = elem;
+			cantidadElem++;
 		}
 		return true;
+	}
+	
+	private PilaArreglo duplicar(PilaArreglo pila) {
+		PilaArreglo aux = new PilaArreglo(pila.arreglo.length*2);
+		PilaArreglo auxInverso = new PilaArreglo(pila.arreglo.length*2);
+		while(pila.cantidadElem > 0){
+			aux.apilar(pila.desapilar());
+		}
+		while(aux.cantidadElem > 0){
+			auxInverso.apilar(aux.desapilar());
+		}
+		return auxInverso;
+	}
+	
+	public int tamanoArre() {
+		return this.arreglo.length;
 	}
 	
 	public T desapilar() {
