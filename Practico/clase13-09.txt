@@ -1,0 +1,144 @@
+EJERCICIO 1
+Bool | true, false, ¬, v, ->
+[[n]]  = (mod n 2 != 0)
+PARES son falsos, IMPARES son verdaderos
+
+							ALGEBRA ABSTRACTA (AA)		ALGEBRA CONCRETA (AC)
+						  <Bool, true, false, ¬, v, ->>	  <IntParImpar, trueC, falseC, ¬C, vC, ->C>
+							
+true   :: Bool				//Generadora
+false  :: Bool				//Generadora
+¬p     :: Bool -> Bool			//Modificadora
+p v q  :: Bool -> Bool -> Bool		//Modificadora
+p -> q :: Bool -> Bool -> Bool		//Modificadora
+
+								ALGEBRA ABSTRACTA a ALGEBRA CONCRETA
+							La funciòn de abstracciòn tiene que ser suryectica, es decir que a cada
+							elemento del AC le corresponda un elemento del AA.
+
+DEMOSTRACIÒN TRUE
+trueC  :: NatParImpar
+trueC = 3
+
+[[trueC]] == true
+	[DEF trueC]
+[[3]] == true
+	[DEF funciòn de abstracciòn]
+(3 mod 2 != 0) == true
+	[ARITMETICA, LÒGICA]
+true == true
+
+DEMOSTRACIÒN FALSE
+falseC :: NatParImpar
+falseC = 2
+
+[[falseC]] == false
+	[DEF falseC]
+[[2]] == false
+	[DEF función de abstracción]
+(2 mod 2 != 0) == false
+	[LÓGICA]
+false == false
+
+DEMOSTRACIÒN ¬
+¬C :: NatParImpar -> NatParImpar
+¬C n = n+1
+
+[[¬C n]] == ¬[[n]]
+	[DEF ¬C, ¬]
+[[n+1]]
+	[DEF ABSTRACCIÒN]
+(mod (n+1) 2 != 0) 
+	[ANALISIS POR CASOS]
+(n es par: true)
+(n es impar: false)
+	[EXPRESADO MEJOR]
+(n es par: ¬false)
+(n es impar: ¬true)
+	[DEF ABSTRACCIÒN]
+¬[[n]] == ¬[[n]]
+
+DEMOSTRACIÓN v
+vC :: NatParImpar -> NatParImpar -> NatParImpar
+vC n m = ((n+m) div 2)+1
+
+[[vC n m]] == [[n v m]]
+	[DEF vC]
+[[((n+m) div 2)+1]]
+	[DEF función de abstracción]
+mod (((n+m) div 2)+1) 2 != 0)
+	[ANALISIS POR CASOS]
+(n es impar y m es impar): true v true
+(n es impar y m es par):   true v false
+(n es par y m es impar):   false v true
+(n es par y m es par):     false v false
+	[LÓGICA]
+(n es impar y m es impar): true
+(n es impar y m es par):   true
+(n es par y m es impar):   true
+(n es par y m es par):     false
+	[DEF función de abstracción]
+[[n v m]] == [[n v m]]
+
+DEMOSTRACIÒN ->
+->C :: NatParImpar -> NatParImpar -> NatParImpar
+->C n m = n*(m div 2)+1
+
+true -> true = true    3 -> 1 = 1
+true -> false = false  3 -> 2 = 4
+false -> true = true   2 -> 3 = 3
+false -> false = true  2 -> 4 = 5
+
+[[->C n m]] == [[n -> m]]
+	[DEF ->C]
+[[n*(m div 2)+1]]
+	[DEF función de abstracción]
+mod (n*(m div 2)+1) 2 != 0
+	[ANALISIS POR CASOS]
+(n es impar y m es impar): true -> true
+(n es impar y m es par):   true -> false
+(n es par y m es impar):   false -> true
+(n es par y m es par):     false -> false
+	[LÓGICA]
+(n es impar y m es impar): true
+(n es impar y m es par):   false
+(n es par y m es impar):   true
+(n es par y m es par):     true
+	[DEF función de abstracción]
+[[n -> m]] == [[n -> m]]
+
+--------------------------------------------------------
+
+public class Vector{
+	private double[] elementos;
+
+	public Vector(int tamaño)
+		elementos = new double[tamaño]
+
+	public double obtenerElemento(indice)
+		validarIndice(indice)
+		return elementos[indice]
+	
+	public void asignarElementos(indice, double valor)
+		validarIndice(indice)
+		elementos[indice] = valor
+
+	public void multiplicarPOrEscalar(double escalar)
+		for(int i = 0; i < elementos.length; i++){
+			elementos[i] *= escalar;
+		}
+
+	public void sumar(Vector otroVector)
+
+	public double productoPunto(Vector otroVector)
+		validarMismoTamaño(otroVector);
+		for(int i = 0; i < elementos.length; i++){
+			resultado += elementos[i]*otroVector.elementos[i];
+		}
+
+	private void validarIndice(int indice)
+		FUERA DE RANGO
+	
+	private void validarMismoTamaño(Vector otroVector)
+		MISMO TAMAÑO
+}
