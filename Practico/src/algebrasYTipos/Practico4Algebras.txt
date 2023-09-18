@@ -1,0 +1,292 @@
+EJERCICIO 2
+Bool | true, false, ¬, v, ->
+[[n]]  = (mod n 2 != 0)
+PARES son falsos, IMPARES son verdaderos
+
+							ALGEBRA ABSTRACTA (AA)		ALGEBRA CONCRETA (AC)
+						  <Bool, true, false, ¬, v, ->>	  <IntParImpar, trueC, falseC, ¬C, vC, ->C>
+							
+true   :: Bool				//Generadora
+false  :: Bool				//Generadora
+¬p     :: Bool -> Bool			//Modificadora
+p v q  :: Bool -> Bool -> Bool		//Modificadora
+p -> q :: Bool -> Bool -> Bool		//Modificadora
+
+								ALGEBRA ABSTRACTA a ALGEBRA CONCRETA
+							La funciòn de abstracciòn tiene que ser suryectica, es decir que a cada
+							elemento del AC le corresponda un elemento del AA.
+
+DEMOSTRACIÒN TRUE
+trueC  :: NatParImpar
+trueC = 3
+
+[[trueC]] == true
+	[DEF trueC]
+[[3]] == true
+	[DEF funciòn de abstracciòn]
+(3 mod 2 != 0) == true
+	[ARITMETICA, LÒGICA]
+true == true
+
+DEMOSTRACIÒN FALSE
+falseC :: NatParImpar
+falseC = 2
+
+[[falseC]] == false
+	[DEF falseC]
+[[2]] == false
+	[DEF función de abstracción]
+(2 mod 2 != 0) == false
+	[LÓGICA]
+false == false
+
+DEMOSTRACIÒN ¬
+¬C :: NatParImpar -> NatParImpar
+¬C n = n+1
+
+[[¬C n]] == ¬[[n]]
+	[DEF ¬C, ¬]
+[[n+1]]
+	[DEF ABSTRACCIÒN]
+(mod (n+1) 2 != 0) 
+	[ANALISIS POR CASOS]
+(n es par: true)
+(n es impar: false)
+	[EXPRESADO MEJOR]
+(n es par: ¬false)
+(n es impar: ¬true)
+	[DEF ABSTRACCIÒN]
+¬[[n]] == ¬[[n]]
+
+DEMOSTRACIÓN v
+vC :: NatParImpar -> NatParImpar -> NatParImpar
+vC n m = ((n+m) div 2)+1
+
+[[vC n m]] == [[n v m]]
+	[DEF vC]
+[[((n+m) div 2)+1]]
+	[DEF función de abstracción]
+mod (((n+m) div 2)+1) 2 != 0
+	[ANALISIS POR CASOS]
+(n es impar y m es impar): true v true
+(n es impar y m es par):   true v false
+(n es par y m es impar):   false v true
+(n es par y m es par):     false v false
+	[LÓGICA]
+(n es impar y m es impar): true
+(n es impar y m es par):   true
+(n es par y m es impar):   true
+(n es par y m es par):     false
+	[DEF función de abstracción]
+[[n v m]] == [[n v m]]
+
+DEMOSTRACIÒN ->
+->C :: NatParImpar -> NatParImpar -> NatParImpar
+->C n m = n*(m div 2)+1
+
+true -> true = true    3 -> 1 = 1
+true -> false = false  3 -> 2 = 4
+false -> true = true   2 -> 3 = 3
+false -> false = true  2 -> 4 = 5
+
+[[->C n m]] == [[n -> m]]
+	[DEF ->C]
+[[n*(m div 2)+1]]
+	[DEF función de abstracción]
+mod (n*(m div 2)+1) 2 != 0
+	[ANALISIS POR CASOS]
+(n es impar y m es impar): true -> true
+(n es impar y m es par):   true -> false
+(n es par y m es impar):   false -> true
+(n es par y m es par):     false -> false
+	[LÓGICA]
+(n es impar y m es impar): true
+(n es impar y m es par):   false
+(n es par y m es impar):   true
+(n es par y m es par):     true
+	[DEF función de abstracción]
+[[n -> m]] == [[n -> m]]
+
+----------------------------------------------------------------------------------------------------------------
+EJERCICIO 4
+PASOS
+1. Definiciòn algebra abstracta
+2. Definiciòn algebra concreta
+3. Función de abstracción: Demostración suryectividad y correspondencia entre algebra abstracta, concreta.
+4. Si C tiene invariante hay que demostrar que las operaciones la preservan
+
+----------------------------------------------
+
+1 y 2. Definiciòn algebra abstracta y concreta
+ALGEBRA ABSTRACTA: {A} | Ø, insertar, ∪, ∈
+ALGEBRA CONCRETA: {A} | [], insertarC, ∪C, ∈C
+Invariante de representaciòn: Listas ordenadas y sin repetir
+
+Ø = Generadora
+insertar = Modificadora
+∪ = Modificadora
+∈ = Observadora
+
+----------------------------------------------
+
+3. Funciòn de abstracciòn
+   Algebra concreta -> Algebra abstracta
+   Hay que tener en cuenta que en conjuntos no importa el orden
+   
+	[[ [] ]] = Ø
+	[[ [x] ]] = {x} U Ø
+	[[ (x.y.xs) ]]
+		| x < y = {x} U [[y.xs]]
+		| x == y = {x} U [[xs]]
+		| x > y = {y} U [[x.xs]]
+
+3. Demostraciòn suryectiva (Se puede demostrar por cardinalidad)
+
+	∀ #s, ∃ xs | [[xs]] = s
+CASO BASE, #s = 0 -> #s = Ø, ∃ [[xs]] = Ø
+	xs = []
+CASO INDUCTIVO, #s' = s+1, ∃ x:xs | [[x:xs]] = s'
+	x:xs existe en el mundo de las listas
+	por HI se que [[xs]] = s
+	es decir que [[x:xs]] = s'
+
+3. Demostraciòn correspondencia entre algebras
+
+	[[Ø]] == Ø
+		[DEF. Ø]
+	[[ [] ]]
+		[DEF. Funciòn de abstracciòn]
+	Ø
+	
+	-----------------------------------------
+	
+	[[insertarC x [] ]] == [x]
+		[DEF. insertarC]
+	[[ [x] ]]
+		[DEF. Funciòn de abstracciòn]
+	[x]
+	
+	[[insertarC x xs ]] == insertar x [[xs]]
+		[DEF. insertarC]
+	[[ (x.y.xs) ]] == insertar x [[xs]]
+		[DEF. Función de abstracción]
+	{x} U [[xs]] == insertar x [[xs]]
+		[DEF. insertar]
+	{x} U [[xs]] == [[x:xs]]
+		[DEF. U]
+	[[x:xs]] == [[x:xs]]
+	
+	-----------------------------------------
+	
+	[[xs Uc [] ]] == [[xs]] U []
+		[DEF. Uc]
+	[[xs]] == [[xs]] U []
+		[DEF. Función de abstracción, U]
+	xs == xs
+	
+	[[xs Uc [y] ]] == xs U [[y]]
+		[DEF. Uc]
+	[[y:xs]] == y U [[xs]]	
+		[DEF. Función de abstracción]
+	{y} U [[xs]] == y U [[xs]]
+	
+	[[xs Uc ys]] == [[xs]] U [[ys]]
+		[DEF. Uc]
+	[[x:y:xs U ys]] == [[xs]] U [[ys]]
+		[DEF. Función de abstracción, U]
+	{x} U [[y:xs]] U ys == [[x:y:xs]] U [[ys]]
+		[DEF. Función de abstracción]
+	{x} U [[y:xs]] U ys == {x} U [[y:xs]] U [[ys]]
+	
+	-----------------------------------------
+
+	∈ n [] == False
+		[DEF. ∈]
+	False == False
+	
+	∈ n [x] == True or False
+		[DEF. ∈]
+	(n == x) == True or False
+		[LÓGICA]
+	True or False == True or False
+	
+	∈ n (x:xs) == True or False
+		[DEF. ∈]
+	(n == x) or ∈ n xs == True or False
+
+
+--------------------------------------------------------
+
+4. Demostraciòn invariante
+DEMOSTRACIÒN INVARIANTE 
+Solo para modificadoras y generadoras, las operaciones que modifican el valor de lo que estoy tratando.
+Suponemos el antecedente y demostramos el consecuente.
+
+	inv = ordenada y sin repetir
+	inv [] = True
+	inv [x] = True
+	inv [x:y:xs] = 
+		| x < y && inv y:xs
+		| False
+
+USAMOS INDUCCIÒN
+
+4.a - inv Ø
+	
+	inv Ø
+		[DEF. inv]
+	True 
+
+4.b - inv xs -> inv x xs
+
+	inv x xs
+		[DEF. insertar]
+	inv (x:xs)
+		[DEF. inv]
+	
+
+4.c - inv xs ys -> inv (xs ∪ ys)
+
+	inv (xs U ys)
+		[DEF. U]
+	inv (x:y:xs U ys)
+		[DEF. inv]
+	x < y && inv y:xs
+
+4.d - inv l -> C m -> inv (m ∈ l)
+
+
+------------------------------------------------------------------------------------------------------
+public class Vector{
+	private double[] elementos;
+
+	public Vector(int tamaño)
+		elementos = new double[tamaño]
+
+	public double obtenerElemento(indice)
+		validarIndice(indice)
+		return elementos[indice]
+	
+	public void asignarElementos(indice, double valor)
+		validarIndice(indice)
+		elementos[indice] = valor
+
+	public void multiplicarPOrEscalar(double escalar)
+		for(int i = 0; i < elementos.length; i++){
+			elementos[i] *= escalar;
+		}
+
+	public void sumar(Vector otroVector)
+
+	public double productoPunto(Vector otroVector)
+		validarMismoTamaño(otroVector);
+		for(int i = 0; i < elementos.length; i++){
+			resultado += elementos[i]*otroVector.elementos[i];
+		}
+
+	private void validarIndice(int indice)
+		FUERA DE RANGO
+	
+	private void validarMismoTamaño(Vector otroVector)
+		MISMO TAMAÑO
+}
