@@ -45,7 +45,7 @@ public class NodoBinario<T>  {
 
     void setIzquierdo(NodoBinario<T> nuevoIzquierdo) {
         this.izquierdo = nuevoIzquierdo;
-        this.altura = Math.max(izquierdo.altura, derecho.altura);
+        this.altura = izquierdo.altura;
     }
 
     NodoBinario<T> getDerecho() {
@@ -54,7 +54,7 @@ public class NodoBinario<T>  {
 
     void setDerecho(NodoBinario<T> nuevoDerecho) {
         this.derecho = nuevoDerecho;
-        this.altura = Math.max(izquierdo.altura, derecho.altura);
+        this.altura = derecho.altura;
     }
 
     public int getAltura() {
