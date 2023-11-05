@@ -215,7 +215,7 @@ public class ABB<T> implements Diccionario<T> {
      */
     @Override
     public int altura() {
-        if (r == null){
+        if (raiz == null){
             throw new NoSuchElementException("El árbol está vacío.");
         }
         return raiz.getAltura();
@@ -233,7 +233,7 @@ public class ABB<T> implements Diccionario<T> {
      * {@inheritDoc}
      */
     public T mayorValor(){
-        if (r == null){
+        if (raiz == null){
             throw new NoSuchElementException("El árbol está vacío.");
         } else {
             return mayorRecursivo(raiz);
@@ -253,7 +253,7 @@ public class ABB<T> implements Diccionario<T> {
      */
     @Override
     public T menorValor() {
-        if (r == null){
+        if (raiz == null){
             throw new NoSuchElementException("El árbol está vacío.");
         } else {
             return menorRecursivo(raiz);
@@ -377,10 +377,10 @@ public class ABB<T> implements Diccionario<T> {
             return false; // Verifica si el objeto es nulo o de una clase diferente
         }
     
-        Diccionario<T> otherTree = (Diccionario<T>) obj;
-        return equalsRecursivo(raiz, otherTree.raiz);
+        NodoBinario<T> otherTree = (NodoBinario<T>) obj;
+        return equalsRecursivo(raiz, otherTree);
     }
-    
+
     private boolean equalsRecursivo(NodoBinario<T> r1, NodoBinario<T> r2) {
         if (r1 == null && r2 == null) {
             return true; // Ambos son nulos, son iguales
